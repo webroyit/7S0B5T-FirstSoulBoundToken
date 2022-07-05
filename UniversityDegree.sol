@@ -9,6 +9,7 @@ contract UniversityDegree is ERC721URIStorage {
     address owner;
 
     using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
 
     // This function get call once when you deploy the contract
     constructor() ERC721("UniversityDegree", "Degree") {
@@ -25,5 +26,19 @@ contract UniversityDegree is ERC721URIStorage {
 
     function issueDegree(address to) onlyOwner external {
         issueDegrees[to] = true;
+    }
+
+    function claimDegree(string memory tokenURI) public returns(uint256) {
+        require(issueDegrees[msg.sender], "Degree is not issued");
+
+        _tokenIds.increment();
+
+        uint256 newItemId = _tokenIds.current();
+        _mint(msg.sender, newItemId);
+        _setTokenURI(newItemId, tokenURI);
+
+        issueDegrees[msg.sender] = false;
+
+        return newItemId;
     }
 }
