@@ -37,8 +37,15 @@ contract UniversityDegree is ERC721URIStorage {
         _mint(msg.sender, newItemId);
         _setTokenURI(newItemId, tokenURI);
 
+        personToDegree[msg.sender] = tokenURI;
         issueDegrees[msg.sender] = false;
 
         return newItemId;
+    }
+
+    mapping(address => string) public personToDegree;
+
+    function checkDegreeOfPerson(address person) external view returns (string memory) {
+        return personToDegree[person];
     }
 }
