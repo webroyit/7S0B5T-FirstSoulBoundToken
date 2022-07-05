@@ -1,4 +1,5 @@
 # Soul Bound Token
+First time creating Soul Bound Token.  The template is from Dapp University youtube channel.
 
 ## To make a NFT contract non-transferable
 - Flatten this contract
